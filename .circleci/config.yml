@@ -3,6 +3,13 @@ version: 2.1 # use CircleCI 2.0
 orbs:
   slack: circleci/slack@4.5.0
 
+executors:
+  maven-executor:
+    docker:
+      # See: https://circleci.com/developer/images/image/cimg/openjdk
+      # org.codehaus.gmaven:gmaven-plugin needs JDK 11.
+      - image: cimg/openjdk:11.0.13
+
 aliases:
   - &exclude-deploy
     branches:
