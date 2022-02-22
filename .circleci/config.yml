@@ -56,8 +56,20 @@ jobs: # a collection of steps
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
       - run: mvn clean install -pl :lambda -am -DskipTests -PskipStyle
       - run: mvn lambda:deploy-lambda -pl :lambda
-      
-
+  investigate_bash:
+    executor: maven-executor
+    steps:
+      - setup_remote_docker:
+          # https://stackoverflow.com/questions/67505628/circleci-build-of-meteor-2-2-docker-application-failing
+          # https://support.circleci.com/hc/en-us/articles/360050934711
+          version: 19.03.13
+      - checkout
+      - run:
+          command: |
+            echo 'docker run -it node:14.18.2-alpine sh'
+            echo 'apk --no-cache add bash'
+            echo 'bash'
+            echo 'type -a npm'
 
 workflows:
   build_and_test:
@@ -74,3 +86,9 @@ workflows:
           # https://ideas.circleci.com/cloud-feature-requests/p/multiple-contexts-in-a-workflow
           context: aws-cleanthat
           filters: *include-deploy-prd
+  investigate_bash:
+    jobs:
+      - investigate_bash:
+          filters: 
+            branches:
+              only: /investigate-bash/
