@@ -266,7 +266,7 @@ public abstract class AbstractGitHubWireMockTest {
 					.private_(false)
 					.create();
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(3_000);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e.getMessage(), e);
 			}

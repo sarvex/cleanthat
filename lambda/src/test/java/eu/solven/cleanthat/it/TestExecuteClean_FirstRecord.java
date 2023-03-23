@@ -61,9 +61,7 @@ public class TestExecuteClean_FirstRecord extends AProcessLocallyDynamoDbEvent_E
 	// https://stackoverflow.com/questions/33855874/testpropertysource-with-dynamic-properties
 	@DynamicPropertySource
 	static void dynamicProperties(DynamicPropertyRegistry registry) {
-		registry.add(ENV_GITHUB_DO_RECORD, () -> {
-			return Boolean.toString(DO_RECORD);
-		});
+		registry.add(ENV_GITHUB_DO_RECORD, () -> Boolean.toString(DO_RECORD));
 	}
 
 	static {

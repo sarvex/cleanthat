@@ -402,10 +402,8 @@ public class GitHubWireMockRule extends WireMockMultiServerRule {
 
 	private Map.Entry<String, String> getId(Path filePath, Map<String, String> idToIndex) throws IOException {
 		var filePathString = filePath.toString();
-		for (Map.Entry<String, String> item : idToIndex.entrySet()) {
-			if (filePathString.contains(item.getKey())) {
-				return item;
-			}
+		if (idToIndex.entrySet().stream().anyMatch(item -> filePathString.contains(item.getKey()))) {
+			return item;
 		}
 		return null;
 	}
